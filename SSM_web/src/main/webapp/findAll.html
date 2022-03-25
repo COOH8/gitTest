@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查找所有用户</title>
+    <script src="js/axios-0.18.0.js"></script>
+    <script src="js/vuejs-2.5.16.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table cellpadding="0" align="center" border="1" width="400px">
+            <tr>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>地址</td>
+                <td>qq</td>
+                <td>邮箱</td>
+            </tr>
+            <tr v-for="(linkman,index) in linkmans">
+                <td v-html="linkman.name"></td>
+                <td v-html="linkman.sex"></td>
+                <td v-html="linkman.age"></td>
+                <td v-html="linkman.address"></td>
+                <td v-html="linkman.qq"></td>
+                <td v-html="linkman.email"></td>
+            </tr>
+        </table>
+    </div>
+<script>
+    var vue = new Vue({
+        el:"#app",
+        data:{
+            linkmans:[]
+        },methods:{
+            findAll(){
+                axios.get("/linkman/findAll").then(response=>{
+                    this.linkmans = response.data
+                })
+            }
+        },created(){
+            this.findAll()
+        }
+    });
+</script>
+</body>
+</html>
